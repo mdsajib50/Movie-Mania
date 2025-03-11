@@ -47,7 +47,9 @@ function addstat(elem, value) {
 function printMoviesData(movieReviewData) {
     const flatReviewData = movieReviewData.flat();
     const movieListEl = document.querySelector("#movieListId UL");
-    let sortReview = flatReviewData.filter(movie => movie.on).sort((movieA, movieB) => movieB.on - movieA.on);
+    let sortReview = flatReviewData.toSorted((movieA, movieB) => movieB.on - movieA.on);
+    console.log(flatReviewData);
+    console.log(sortReview);
     
     sortReview.map((movie) => {
        
@@ -71,7 +73,7 @@ function printMoviesData(movieReviewData) {
         const byElem = document.createElement("p");
         byElem.classList.add("mx-2", "mb-2");
 
-        byElem.innerText = `By ${movie.by} on ${new Intl.DateTimeFormat('en-bd').format(movie.on)}`;
+        byElem.innerText = `By ${movie.by} on ${new Intl.DateTimeFormat('en-in').format(movie.on)}`;
 
         liElem.appendChild(byElem);
         movieListEl.appendChild(liElem);
