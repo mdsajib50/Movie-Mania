@@ -5,6 +5,7 @@ function init() {
     const movieReviewData = getMovieReviewData();
     console.log(movieReviewData);
     printStatistics(movieReviewData);
+    printMoviesData(movieReviewData);
     
 };
 
@@ -28,7 +29,7 @@ function printStatistics(movieReviewData) {
 
     const avgRatingEl = document.getElementById("tAvgRating");
     addstat(avgRatingEl, avgRating);
-    
+
     const totalReviewEl = document.getElementById("tReviewsId");
     addstat(totalReviewEl, totalReviews);
     
@@ -42,6 +43,38 @@ function addstat(elem, value) {
     elem.appendChild(spanEl);
     
 };
+
+function printMoviesData(movieReviewData) {
+    const flatReviewData = movieReviewData.flat();
+    const movieListEl = document.querySelector("#movieListId UL");
+    console.log(movieListEl);
+    flatReviewData.map((movie) => {
+        const liElem = document.createElement("li");
+        liElem.classList.add("card", "my-2", "p-2");
+
+        const titleElem = document.createElement("p");
+        titleElem.classList.add("text-xl", "mb-2");
+        console.log(titleElem);
+
+        titleElem.innerText = `${movie.title} - ${movie.rating}`;
+
+        liElem.appendChild(titleElem);
+        const reviewElem = document.createElement("p");
+        reviewElem.classList.add("mx-2", "mb-2");
+
+        reviewElem.innerText = movie.content;
+
+        liElem.appendChild(reviewElem);
+
+        const byElem = document.createElement("p");
+        byElem.classList.add("mx-2", "mb-2");
+
+        byElem.innerText = `By ${movie.by} on ${new Intl.DateTimeFormat('en-bd').format(movie.on)}`;
+
+        liElem.appendChild(byElem);
+        movieListEl.appendChild(liElem);
+    })
+}
 
 init();
 
