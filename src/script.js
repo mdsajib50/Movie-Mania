@@ -3,7 +3,7 @@ import { getMovieReviewData } from "./data.js";
 
 function init() {
     const movieReviewData = getMovieReviewData();
-    console.log(movieReviewData);
+    registerHandlers(movieReviewData);
     printStatistics(movieReviewData);
     printMoviesData(movieReviewData);
     
@@ -48,17 +48,35 @@ function printMoviesData(movieReviewData) {
     const flatReviewData = movieReviewData.flat();
     const movieListEl = document.querySelector("#movieListId UL");
     let sortReview = flatReviewData.toSorted((movieA, movieB) => movieB.on - movieA.on);
-    console.log(flatReviewData);
-    console.log(sortReview);
     
-    sortReview.map((movie) => {
+    addMovies(movieListEl, sortReview);
+};
+
+function registerHandlers(movieReviewData) {
+    const sortBtn = document.getElementById('sortBtn');
+    sortBtn.addEventListener("click", ()=> sortByRating(movieReviewData));
+};
+
+function sortByRating(movieReviewData) {
+
+    const flatReviewData = movieReviewData.flat();
+    const movieListEl = document.querySelector("#movieListId UL");
+    
+
+    const sortRating = flatReviewData.toSorted((movieA, movieB) => movieB.rating - movieA.rating);
+    console.log(sortRating);
+    addMovies(movieListEl, sortRating);
+};
+
+function addMovies(movieListEl,movieReview) {
+    movieReview.map((movie) => {
        
         const liElem = document.createElement("li");
         liElem.classList.add("card", "my-2", "p-2");
 
         const titleElem = document.createElement("p");
         titleElem.classList.add("text-xl", "mb-2");
-        console.log(titleElem);
+        
 
         titleElem.innerText = `${movie.title} - ${movie.rating}`;
 
@@ -78,6 +96,7 @@ function printMoviesData(movieReviewData) {
         liElem.appendChild(byElem);
         movieListEl.appendChild(liElem);
     })
+    
 }
 
 init();

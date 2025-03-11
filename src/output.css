@@ -354,6 +354,9 @@
   .my-2 {
     margin-block: calc(var(--spacing) * 2);
   }
+  .mt-\[5px\] {
+    margin-top: 5px;
+  }
   .mb-2 {
     margin-bottom: calc(var(--spacing) * 2);
   }
