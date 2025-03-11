@@ -1,5 +1,6 @@
 import { getMovieReviewData } from "./data.js";
 // console.log(getMovieReviewData());
+let sortDesc = false;
 
 function init() {
     const movieReviewData = getMovieReviewData();
@@ -59,13 +60,18 @@ function registerHandlers(movieReviewData) {
 
 function sortByRating(movieReviewData) {
 
+    sortDesc = !sortDesc;
+
     const flatReviewData = movieReviewData.flat();
     const movieListEl = document.querySelector("#movieListId UL");
-    
+    removeAllChildNodes(movieListEl);
 
-    const sortRating = flatReviewData.toSorted((movieA, movieB) => movieB.rating - movieA.rating);
-    console.log(sortRating);
-    addMovies(movieListEl, sortRating);
+    const sortRating = sortDesc ? flatReviewData.toSorted((movieA, movieB) => movieB.rating - movieA.rating)
+        
+                                 : flatReviewData.toSorted((movieA, movieB) => movieA.rating - movieB.rating);
+    
+                console.log(sortRating);
+                addMovies(movieListEl, sortRating);
 };
 
 function addMovies(movieListEl,movieReview) {
@@ -97,6 +103,12 @@ function addMovies(movieListEl,movieReview) {
         movieListEl.appendChild(liElem);
     })
     
+};
+
+function removeAllChildNodes(parent) {
+    while (parent.firstChild) {
+        parent.removeChild(parent.firstChild);
+    }
 }
 
 init();
