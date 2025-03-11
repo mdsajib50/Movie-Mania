@@ -47,8 +47,10 @@ function addstat(elem, value) {
 function printMoviesData(movieReviewData) {
     const flatReviewData = movieReviewData.flat();
     const movieListEl = document.querySelector("#movieListId UL");
-    console.log(movieListEl);
-    flatReviewData.map((movie) => {
+    let sortReview = flatReviewData.filter(movie => movie.on).sort((movieA, movieB) => movieB.on - movieA.on);
+    
+    sortReview.map((movie) => {
+       
         const liElem = document.createElement("li");
         liElem.classList.add("card", "my-2", "p-2");
 
